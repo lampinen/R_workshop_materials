@@ -1,0 +1,159 @@
+---
+title: "bootstrapped_t_test.Rmd"
+author: "AndrewLampinen"
+date: "September 20, 2016"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+stroop_data = read.csv("https://raw.githubusercontent.com/lampinen/R_workshop_materials/master/data/stroop.csv")
+```
+
+As before, let's filter out the invalid rts from the data we are going to use.
+
+```{r}
+filtered_stroop_data = stroop_data %>% filter(rt > 0)
+```
+
+
+
+A simple bootstrap function
+----------------------------
+
+Let's write a simple function to save us work in the future! This function will bootstrap a $t$-test, but we'll build up to that. First, lets start by examining R's built-in function which runs a standard $t$-test on the two conditions. Give it a try:
+
+```{r}
+stroop_congruent_rts = filtered_stroop_data[filtered_stroop_data$condition == "congruent",]$rt
+stroop_incongruent_rts = filtered_stroop_data[filtered_stroop_data$condition == "incongruent",]$rt
+t.test(stroop_congruent_rts,stroop_incongruent_rts)
+```
+
+Notice what this function does. It takes two vectors of data, corresponding to two conditions, and runs a standard $t$-test on them. We're going to ask you to build a similar function that takes two vectors of data and bootstraps a $t$-test on them, to get an idea of the robustness of the result.
+
+First, let's create a more basic function.
+
+```{r}
+sayhi = function() {
+  print("Hi!")
+}
+```
+
+This creates a function called sayhi. Try running the function and see what happens!
+
+```{r}
+sayhi()
+```
+
+Now try just running the code that's inside the function
+
+```{r}
+print("Hi!")
+```
+
+See, running a function is (mostly) just like running the code inside it. Functions just help keep your code organized, and let you reuse it. For example, instead of manually writing out the code for a $t$-test every time you run one, `t.test` which we used above lets you reuse the code someone else wrote.
+
+However our first function does is say "Hi!" That's endearing, but not very interesting. As a first step to make it do something more interesting, let's give it some arguments (some input for the function to do something with).
+
+```{r}
+say.some.things = function(thing1,thing2) {
+  print(thing1)
+  print(thing2)
+}
+```
+
+When you want your function to take arguments, you put them in the parentheses in the function definition. Here, we created two arguments, thing1 and thing2, and then we have the function print them. For example:
+
+```{r}
+say.some.things("Hi!","How are you?")
+```
+
+We also might want our function to give its output to some other part of the program, instead of printing it. That way we can use that value somewhere else in the code. We do that by telling the function to `return` a value. For example:
+
+```{r}
+returnhi = function() {
+  return("Hi!")
+}
+
+x = returnhi()
+x
+replicate(10,returnhi())
+```
+
+See, now we can use that hi in various other places, like making a bunch of copies of it.
+
+Now we know all we need to about functions, so let's get back to the task of writing a bootstrap $t$-test function. First, write the skeleton of a basic function called bootstrap.t.test that will take two arguments, for the two data vectors. Leave the rest of the function blank for now.
+
+```{r}
+#Your code here
+```
+
+The way a bootstrap works is that we're going to run a lot of $t$-tests, and compare the results. Of course, it wouldn't be very helpful to run all the tests on the same data, so we're going to *simulate* new data each time, by taking random samples of the original data using the `sample` function. Try out the sample function now!
+
+```{r}
+sample(stroop_congruent_rts,10,replace=TRUE)
+```
+
+The sample function takes a vector, and returns a sample from it (of the size you specify). With `replace=TRUE`, samples may include the same element multiple times. This means that if we take a sample the same size as our original data, the sample probably won't be the same as the original data. These samples will be the new datasets that we run our $t$-tests on. Go ahead and copy your function skeleton above down here, and add code to draw samples from each of the vectors passed in. (Make sure the samples you generate are the same size as the vectors you passed in, you might want to use functions like `length` for that.)
+
+```{r}
+#Your code here
+
+
+
+
+
+
+
+
+
+
+## one possible answer
+# bootstrap.t.test = function(x,y) {
+#   x1 = sample(x,length(x),replace=TRUE)
+#   y1 = sample(y,length(y),replace=TRUE)
+#   results = t.test(x1,y1)
+#   return(results$statistic)
+# }
+```
+
+Finally, add code to your function to run `t.test` on the samples you generated, and `return` the t value from above. (If you do `results = t.test(...)`, you can access the t value by itself by doing `results$statistic`). 
+
+Now your function should work! Try running it a few times on the data to make sure. You should get a different $t$-value each time, because of the random sampling you built in. 
+
+```{r}
+bootstrap.t.test(stroop_congruent_rts,stroop_incongruent_rts)
+```
+
+If it works, congratulations! If not, see if you can figure out what's wrong or ask for help.
+
+Now we're ready for the last step -- running it many times! Go ahead and run the following once your function is working (it may take a bit to run):
+
+```{r}
+bootstrap_results = data.frame(t=replicate(10000,bootstrap.t.test(stroop_congruent_rts,stroop_incongruent_rts)))
+```
+
+Then we can see what the distribution of t-values we got looks like, and how the t-value we got using `t.test` compares. (You'll learn more about ggplot at the R tutorial tomorrow!)
+
+```{r}
+ggplot(data=bootstrap_results,aes(t))+
+  geom_histogram()+
+  geom_vline(aes(xintercept=t.test(stroop_congruent_rts,stroop_incongruent_rts)$statistic,color="original t value"))+
+  theme_bw()
+```
+
+We can use dplyr to easily get some statistics on the distribution of our bootstrap $t$-values:
+
+```{r}
+bootstrap_summary = bootstrap_results %>% summarize(t_mean = mean(t),t_std = sd(t))
+bootstrap_summary
+```
+
+This tells us that there is a very reliable difference between the groups.
+
+The nice thing about bootstrapping is we can use it for much more general data distributions or more complicated experiment designs, where we don't know how to construct confidence intervals or an appropriate test! If you're interested, here's some further reading:
+
+[A gentle introduction to bootstrapping](http://t-redactyl.io/blog/2015/09/a-gentle-introduction-to-bootstrapping.html)
+[A very not gentle introduction to nonparametric statistics more broadly (All of nonparametric statistics)](https://ebookcentral.proquest.com/lib/stanford-ebooks/detail.action?docID=302780)
