@@ -8,7 +8,7 @@ output:
     toc_float: true
 ---
 
-Developed by Cayce Hook with thanks to Anna Khazenzon and previous authors of [R tutorial materials](http://web.stanford.edu/class/psych252/tutorials/), including Paul Thibodeau, Mike Frank, Benoit Monin, Ewart Thomas, Michael Waskom and Steph Gagnon, Dan Birman, Natalia Velez, Kara Weisman, Andrew Lampinen, Joshua Morris and Yochai Shavit.
+Developed by Cayce Hook with thanks to Anna Khazenzon and previous authors of [R tutorial materials](http://web.stanford.edu/class/psych252/tutorials/), including Paul Thibodeau, Mike Frank, Benoit Monin, Ewart Thomas, Michael Waskom and Steph Gagnon, Dan Birman, Natalia Velez, Kara Weisman, Andrew Lampinen, Joshua Morris and Yochai Shavit. Revised by Andrew Lampinen in 2018.
 
 
 # Introduction to the tutorial
@@ -88,8 +88,8 @@ When you evaluate an expression like `1 + 2` in the console, the result is displ
 There are two (almost) equivalent ways to assign a value to a variable, using `=` and `<-`:
 
 ```{r variable_assignment_1}
-cohort_size = 7
-cohort_size <- 7
+cohort_size = 11
+cohort_size <- 11
 
 
 #NOTE: It is important not to confuse variable assignment with a statement about equality. In your head, you should say "set cohort_size to 7" or perhaps "cohort_size gets 7", but not "cohort_size is equal to 7". 
@@ -278,11 +278,11 @@ a < b
 After assigning variables, we can now use them in calculations:
 ```{r calculate_with_variables}
 
-devo <- 0
-affective <- 1
+devo <- 1
+affective <- 4
 cog <- 1
-social <- 2
-neuro <- 3
+social <- 4
+neuro <- 1
 
 
 cohort_size = devo + affective + cog + social + neuro 
@@ -291,7 +291,7 @@ cohort_size # print the result
 
 # Of course, we can do completely arbitrary calculations with any of our variables too--R will oblige:
 apples <- (social * (cog - neuro)^3 + social * devo + cohort_size + 12) / (cog - affective)
-oranges <- -(3 * 2)
+oranges <- -(3^2)
 
 apples == oranges 
 ```
@@ -373,12 +373,12 @@ When you want something like a phrase in your variable name, you can use `_` and
 
 ```{r consistency}
 # GOOD:
-barack.age <- 55
-michelle.age <- 52
+barack.age <- 57
+michelle.age <- 54
 
 # NOT SO GOOD:
-ObamaAge=55
-michelle_Age<-52
+ObamaAge=57
+michelle_Age<-54
 
 ```
 
@@ -930,7 +930,7 @@ result <- albums %>%
 # ANSWER:
 # result <- albums %>%                                
 #  group_by(solo) %>%                             
-#  summarize(total_sales = sum(sales_milions))
+#  summarize(total_sales = sum(sales_millions))
 ```
 
 
