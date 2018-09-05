@@ -959,7 +959,7 @@ On the next line, copy over the following, highlight it, and hit command-Enter/c
 library(dplyr)
 library(ggplot2) # first `run install.packages("ggplot2")` if you haven't done so yet
 
-stroop <- read.csv("https://raw.githubusercontent.com/dbirman/bootcamp-data/master/stroop.csv")
+stroop <- read.csv("https://raw.githubusercontent.com/lampinen/R_workshop_materials/master/data/stroop.csv")
 ```
 
 When you load in a dataset, you'll want to explore it a bit so you get a feel for the kind of data it contains (and to ensure that it was loaded properly). You can type `View(stroop)` or click on `stroop` in the Environment pane to view the dataset.
@@ -1155,7 +1155,7 @@ qplot(x = correct, data = stroop.testtrials, geom = "bar", facets = stim_color~s
 
 The following section introduces more advanced plotting. This goes beyond what is needed for the sake of the first class in our stats sequence, PSYCH 251, but will come in handy later on as you work n your own data and manuscripts. 
 
-## More advanced plotting using ggplot - Not needed for PSYCH 251
+## More advanced plotting using ggplot - Not (necessarily) needed for PSYCH 251
 qplot is helpful for very simple plotting. Most of the time we will want to plot more interesting/informative things. Plotting is an important skill that could help you make sense of your data and results as well as communicate findings efficiently. The package 'ggplot' is our main workhorse for plotting. Like dplyr, ggplot takes an object and adds "layers" to it. However, while dplyr use piping ("%>%") ggplot uses the plus sign ("+"). 
 
 The first argument is 'data=' -ggplot needs to know what dataset to work with. Then, 'aes()' tells ggplot what the basic "aesthetics" of the plot are. These include the x-axis, y-axis (when relevant) and color/fill settings (if we want lines or bars in different colors in their outlines or filled with different colors respectively).
