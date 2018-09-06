@@ -1,9 +1,11 @@
 ---
 title: "bootstrapped_t_test.Rmd"
-author: "AndrewLampinen"
-date: "September 20, 2016"
+author: "Andrew Lampinen"
+date: "September 5th, 2018"
 output: html_document
 ---
+
+Developed and edited by Andrew Lampinen in 2016 and 2018.
 
 ```{r}
 library(dplyr)
