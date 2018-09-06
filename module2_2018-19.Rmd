@@ -529,4 +529,5 @@ summary(logistic_model)
 # summary(logistic_model)
 ```
 
-Optional: If 
+
+Thanks for working through these modules! If you're still not sick of playing around with R, you can check out [this tutorial](https://raw.githubusercontent.com/lampinen/R_workshop_materials/master/bootstrapped_t_test.Rmd) on making a function for [bootstrapping](https://en.wikipedia.org/wiki/Bootstrapping_(statistics)) a t-test, or look at some of the links from the end of module 1.
