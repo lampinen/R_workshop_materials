@@ -92,7 +92,7 @@ cohort_size = 11
 cohort_size <- 11
 
 
-#NOTE: It is important not to confuse variable assignment with a statement about equality. In your head, you should say "set cohort_size to 7" or perhaps "cohort_size gets 7", but not "cohort_size is equal to 7". 
+#NOTE: It is important not to confuse variable assignment with a statement about equality. In your head, you should say "set cohort_size to 11" or perhaps "cohort_size gets 11", but not "cohort_size is equal to 11". 
 
 # Although using `=` to assign variables is the norm in many other programming languages, the standard in R is to use `<-`* for variable assignment as it makes the action that is being performed more obvious. 
 ```
@@ -100,7 +100,7 @@ cohort_size <- 11
 As you work on an R session you will produce a collection of "objects" held in the computer's memory (or for the purposes of R, your "workspace"). Check the top-right pane in RStudio under 'environment' to view the objects that are currently stored in your workspace.
 
 
-You should see `cohort_size` is now one of these objects the computer is keeping track of, and its value is `7`.  It will remain stored as `7` unless and until you reassign `cohort_size`. 
+You should see `cohort_size` is now one of these objects the computer is keeping track of, and its value is `11`.  It will remain stored as `11` unless and until you reassign `cohort_size`. 
 
 
 ```{r variable_assignment_2}
@@ -128,7 +128,7 @@ cohort_size
 #
 ```
 
-Even though we added 2 to it, `cohort_size` is still set to 7, because we didn't reassign its value. 
+Even though we added 2 to it, `cohort_size` is still set to 11, because we didn't reassign its value. 
 
 Let's do that now:
 
@@ -671,7 +671,7 @@ albums
 
 
 
-# You should have written something like:  albums$years_since_release <- 2017 - albums$year
+# You should have written something like:  albums$years_since_release <- 2018 - albums$year
 
 ```
 
