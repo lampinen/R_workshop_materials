@@ -201,7 +201,7 @@ We will not get into the details of hypothesis testing in this tutorial, and wil
 
 T-tests
 ------------
-A basic and widely used procedure is the [student's t-test](https://en.wikipedia.org/wiki/Student%27s_t-test) (read the Wikipedia entery for the interesting story behind the test's name). This is a test to comapre the **mean** of two grops (either independent or not- such as in the case of repeated measures). In this test, we are interested in the staderdized difference (the **t-statistic**) between two groups (or samples of data). This test *typically* assumes that the distribution of scores in our two populations of interest is normal, and that the two samples have similar (homogeneous) variance. 
+A basic and widely used procedure is the [student's t-test](https://en.wikipedia.org/wiki/Student%27s_t-test) (read the Wikipedia entery for the interesting story behind the test's name). This is a test to compare the **mean** of two grops (either independent or not- such as in the case of repeated measures). In this test, we are interested in the standerdized difference (the **t-statistic**) between two groups (or samples of data). This test *typically* assumes that the distribution of scores in our two populations of interest is normal, and that the two samples have similar (homogeneous) variance. 
 
 We will use our data (df_survey) to go through the steps of a *two-samples* t-test. We are curious whether voters for one party are older than voters for another party. Our dataset has a varaible for party affiliation ("party"), but it has 3 parties and we are interested in two parties only: Democrat (denoted with-1) and Republican (denoted with-2). 
 
